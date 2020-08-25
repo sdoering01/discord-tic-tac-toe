@@ -1,0 +1,26 @@
+{
+  "name": "discord-tic-tac-toe",
+  "version": "1.0.0",
+  "description": "Skeleton for discord.js bot applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start_local": "node -r dotenv/config index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sdoering01/discord-tic-tac-toe.git"
+  },
+  "author": "Simon Döring",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sdoering01/discord-tic-tac-toe/issues"
+  },
+  "homepage": "https://github.com/sdoering01/discord-tic-tac-toe#readme",
+  "dependencies": {
+    "discord.js": "^12.3.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}

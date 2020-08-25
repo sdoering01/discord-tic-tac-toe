@@ -1,6 +1,7 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 
+const Game = require('./game/game');
 const { prefix, defaultCooldown } = require('./config.json');
 const { token } = require('./env-config');
 
@@ -20,6 +21,8 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
     console.log('Ready!');
+
+    client.game = new Game(3, 3);
 });
 
 client.on('message', message => {

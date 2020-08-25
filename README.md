@@ -41,6 +41,7 @@ module.exports = {
   name: 'my-command',
   description: 'This is my command.',
   aliases: ['my-cmd'],
+  guildOnly: true,
   args: true,
   usage: '<some word>',
   cooldown: 5,
@@ -53,6 +54,7 @@ Properties are defined as follows:
 * `name` (*required*): This is the name of the command. It has to match the file name.
 * `description` (*required*): Short description of the command. This will be showed when using the `help` command.
 * `aliases` (*optional*): Array of aliases which also execute this command.
+* `guildOnly` (*optional*): Indicates whether the command can only be called from a guild (server) and not from a DM.
 * `args` (*optional*): Indicates whether arguments are required.
 * `usage` (*optional*): Describes what arguments are required.
 * `cooldown` (*optional*): The time in seconds that a user has to wait to execute the command again.

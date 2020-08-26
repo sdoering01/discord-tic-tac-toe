@@ -1,11 +1,12 @@
 module.exports = class Game {
-    constructor(size, symbolsToWin) {
+    constructor(size, symbolsToWin, challenger, opponent) {
         this.size = size;
         this.symbolsToWin = symbolsToWin;
         this.field = Array.from(Array(size), () => new Array(size).fill(0));
         this.currentPlayer = 1;
         this.running = true;
         this.winner = undefined;
+        this.players = [challenger, opponent];
     }
 
     makeTurn(x, y) {
@@ -34,6 +35,9 @@ module.exports = class Game {
             }
         }
         fieldString += '\n```';
+        fieldString += `It's your turn, ${
+            this.players[this.currentPlayer - 1].username
+        }.`;
 
         return fieldString;
     }
@@ -48,7 +52,7 @@ module.exports = class Game {
 
     refreshState(lastX, lastY) {
         if (this.isWon(lastX, lastY)) {
-            this.winner = `Player ${this.currentPlayer}`;
+            this.winner = this.players[this.currentPlayer - 1].username;
             this.running = false;
         } else if (this.isFieldFull()) {
             this.running = false;
@@ -111,5 +115,25 @@ module.exports = class Game {
             return 'O';
         }
         return ' ';
+    }
+
+    static findGameByUsers(client, user1, user2) {
+        return client.games.find(
+            (game) =>
+                (game.players[0].id === user1.id &&
+                    game.players[1].id === user2.id) ||
+                (game.players[0].id === user2.id &&
+                    game.players[1].id === user1.id)
+        );
+    }
+
+    static findGamesByUser(client, user) {
+        return client.games.filter((game) =>
+            game.players.some((player) => player.id === user.id)
+        );
+    }
+
+    static deleteGame(client, gameToDelete) {
+        client.games = client.games.filter((game) => game !== gameToDelete);
     }
 };

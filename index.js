@@ -7,12 +7,13 @@ const { token } = require('./env-config');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
+client.games = [];
 
 const cooldowns = new Discord.Collection();
 
 const commandFiles = fs
     .readdirSync('./commands')
-    .filter(file => file.endsWith('.js'));
+    .filter((file) => file.endsWith('.js'));
 
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
@@ -21,20 +22,23 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
     console.log('Ready!');
-
-    client.game = new Game(3, 3);
 });
 
-client.on('message', message => {
+client.on('message', (message) => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    // Extract arguments and EXCLUDE MENTIONS!
+    const args = message.content
+        .slice(prefix.length)
+        .trim()
+        .split(/ +/)
+        .filter((arg) => !arg.startsWith('<@'));
     const commandName = args.shift().toLowerCase();
 
     const command =
         client.commands.get(commandName) ||
         client.commands.find(
-            cmd => cmd.aliases && cmd.aliases.includes(commandName)
+            (cmd) => cmd.aliases && cmd.aliases.includes(commandName)
         );
 
     if (!command) return;
@@ -68,7 +72,11 @@ client.on('message', message => {
         if (now < expirationTime) {
             const timeLeft = (expirationTime - now) / 1000;
             return message.reply(
-                `please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`
+                `please wait ${timeLeft.toFixed(
+                    1
+                )} more second(s) before reusing the \`${
+                    command.name
+                }\` command.`
             );
         }
     }

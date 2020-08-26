@@ -35,9 +35,11 @@ module.exports = class Game {
             }
         }
         fieldString += '\n```';
-        fieldString += `It's your turn, ${
-            this.players[this.currentPlayer - 1].username
-        }.`;
+        if (this.running) {
+            fieldString += `It's your turn, ${
+                this.players[this.currentPlayer - 1].username
+            }.`;
+        }
 
         return fieldString;
     }

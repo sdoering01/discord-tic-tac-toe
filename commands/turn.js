@@ -66,7 +66,7 @@ module.exports = {
             } else {
                 message.channel.send("It's a draw.");
             }
-            Game.deleteGame(game);
+            Game.deleteGame(message.client, game);
         }
     }
 };

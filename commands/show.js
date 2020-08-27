@@ -2,12 +2,16 @@ const Game = require('../game/game');
 
 module.exports = {
     name: 'show',
-    description: 'Shows current game with the mentioned (@) user. You don\'t have to mention a user if you have only one game running.',
+    description:
+        "Shows current game with the mentioned (@) user. You don't have to mention a user if you have only one game running.",
     aliases: ['s'],
     guildOnly: true,
     usage: '[@<user>]',
     execute(message, args) {
-        const gamesOfUser = Game.findGamesByUser(message.client, message.author);
+        const gamesOfUser = Game.findGamesByUser(
+            message.client,
+            message.author
+        );
         let game;
         const opponent = message.mentions.users.first();
 
@@ -32,8 +36,6 @@ module.exports = {
             }
         }
 
-        message.channel.send(
-            `${game.players[0].username} vs ${game.players[1].username}\n${game.getFieldString()}`
-        );
+        message.channel.send(game.getFieldString());
     }
 };

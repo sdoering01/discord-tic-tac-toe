@@ -21,7 +21,8 @@ module.exports = class Game {
     }
 
     getFieldString() {
-        let fieldString = '```\n  x';
+        let fieldString = `${this.players[0].username} vs ${this.players[1].username}\n`;
+        fieldString += '```\n  x';
         for (let x = 0; x < this.size; x++) {
             fieldString += ` ${x + 1}`;
         }

@@ -104,7 +104,7 @@ module.exports = class Game {
     isFieldFull() {
         return this.field
             .map((column) => column.every((el) => el !== 0))
-            .every((rowIsFull) => rowIsFull === true);
+            .every((columnIsFull) => columnIsFull === true);
     }
 
     isInField(x, y) {

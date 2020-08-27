@@ -43,7 +43,7 @@ module.exports = {
             }
         }
 
-        let existingGame = Game.findGameByUsers(
+        const existingGame = Game.findGameByUsers(
             message.client,
             challenger,
             opponent

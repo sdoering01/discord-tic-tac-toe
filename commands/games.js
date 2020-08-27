@@ -6,14 +6,14 @@ module.exports = {
     aliases: ['g'],
     guildOnly: true,
     execute(message, args) {
-        const games = Game.findGamesByUser(message.client, message.author);
-        if (games.length === 0) {
+        const gamesOfUser = Game.findGamesByUser(message.client, message.author);
+        if (gamesOfUser.length === 0) {
             return message.reply('you have no games running.');
         }
 
         let replyMessage = '```';
-        replyMessage += `You have ${games.length} game(s) running\n\n`;
-        replyMessage += games
+        replyMessage += `You have ${gamesOfUser.length} game(s) running\n\n`;
+        replyMessage += gamesOfUser
             .map(
                 (game) =>
                     `${game.players[0].username} vs ${game.players[1].username}`
